@@ -1,3 +1,6 @@
+//Submitted by: Mukarram Haq
+//FCFS takes a bit of time to run; maybe because of the number of task
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -70,18 +73,19 @@ void simulateSJF() {
 
     for (int i = 0; i < NUM_TASKS; i++) {
         tasks[i].creationTime = time(NULL);
-        tasks[i].taskid = i + 1;
-        tasks[i].burstTime = rand() % 6 + 1; 
+        tasks[i].taskid = rand() % NUM_TASKS + 1;
+        tasks[i].burstTime = rand() % 6 + 1;  // Burst time between 1 and 6
     }
 
     qsort(tasks, NUM_TASKS, sizeof(TaskStruct), compareTasks);
 
     printf("Processing SJF queue...\n");
     for (int i = 0; i < NUM_TASKS; i++) {
-        printTaskInfo(tasks[i]);
+        printf("Working on task ID %d with burst time %d\n", tasks[i].taskid, tasks[i].burstTime);
         sleep(1);
     }
 }
+
 
 void simulateRR() {
     TaskStruct tasks[NUM_TASKS];
@@ -92,7 +96,7 @@ void simulateRR() {
 
     for (int i = 0; i < NUM_TASKS; i++) {
         tasks[i].creationTime = time(NULL);
-        tasks[i].taskid = i + 1;
+        tasks[i].taskid = rand() % NUM_TASKS + 1;
         tasks[i].burstTime = rand() % 6 + 1;
         tasks[i].remainingTime = tasks[i].burstTime;
     }
